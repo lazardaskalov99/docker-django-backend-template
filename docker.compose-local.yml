@@ -6,13 +6,13 @@ services:
     env_file:
       - .env
     environment:
-      POSTGRES_DB: ${DB_Name}
-      POSTGRES_USER: ${DB_User}
-      POSTGRES_PASSWORD: ${DB_Password}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - data_volume:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD", "pg_isready", "-q", "-d", "${DB_Name}", "-U", "${DB_User}" ]
+      test: [ "CMD", "pg_isready", "-q", "-d", "${DB_NAME}", "-U", "${DB_USER}" ]
       interval: 10s
       timeout: 5s
       retries: 5

@@ -66,18 +66,18 @@ A production-ready Django REST API blueprint with Docker, featuring Celery for a
    # ================================
    # Database Configuration
    # ================================
-   DB_Name=your_database_name
-   DB_User=your_database_user
-   DB_Password=your_secure_password
-   DB_Host=db
-   DB_Port=5432
+   DB_NAME=your_database_name
+   DB_USER=your_database_user
+   DB_PASSWORD=your_secure_password
+   DB_HOST=db
+   DB_PORT=5432
 
    # ================================
    # Django Settings
    # ================================
-   SECRET_KEY=your_super_secret_key_here
+   DJANGO_SECRET_KEY=your_super_secret_key_here
    DJANGO_DEBUG=True
-   ALLOWED_HOSTS=localhost,127.0.0.1
+   DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
    DJANGO_CSRF_TRUSTED=https://localhost,https://127.0.0.1,http://127.0.0.1
 
    # ================================
@@ -147,18 +147,18 @@ All services (Django, Celery, and Nginx) use the same `.env` file located in the
 #### Database Configuration
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| `DB_Name` | PostgreSQL database name | - | Yes |
-| `DB_User` | Database username | - | Yes |
-| `DB_Password` | Database password | - | Yes |
-| `DB_Host` | Database host | `db` | Yes |
-| `DB_Port` | Database port | `5432` | Yes |
+| `DB_NAME` | PostgreSQL database name | - | Yes |
+| `DB_USER` | Database username | - | Yes |
+| `DB_PASSWORD` | Database password | - | Yes |
+| `DB_HOST` | Database host | `db` | Yes |
+| `DB_PORT` | Database port | `5432` | Yes |
 
 #### Django Settings
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| `SECRET_KEY` | Django secret key (use strong random string) | - | Yes |
+| `DJANGO_SECRET_KEY` | Django secret key (use strong random string) | - | Yes |
 | `DJANGO_DEBUG` | Debug mode (use `False` in production) | `False` | Yes |
-| `ALLOWED_HOSTS` | Comma-separated list of allowed hosts | - | Yes |
+| `DJANGO_ALLOWED_HOSTS` | Comma-separated list of allowed hosts | - | Yes |
 | `DJANGO_CSRF_TRUSTED` | Comma-separated list of trusted CSRF origins | - | No |
 
 #### Redis Configuration
@@ -354,7 +354,7 @@ docker stats
 
 ```bash
 # Access PostgreSQL
-docker exec -it db psql -U ${DB_User} -d ${DB_Name}
+docker exec -it db psql -U ${DB_USER} -d ${DB_NAME}
 
 # Reset database (WARNING: destroys all data)
 docker-compose down -v
