@@ -6,4 +6,4 @@ from rest_framework.permissions import AllowAny
 
 @permission_classes([AllowAny])
 def ping(request):
-    return JsonResponse(data={"Answer": "Pong"}, status=status.HTTP_200_OK)
+    return JsonResponse("pong", safe=False, status=status.HTTP_200_OK)
