@@ -1,0 +1,99 @@
+services:
+  db:
+    image: postgis/postgis
+    platform: linux/amd64
+    container_name: db
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_Name}
+      POSTGRES_USER: ${DB_User}
+      POSTGRES_PASSWORD: ${DB_Password}
+    volumes:
+      - data_volume:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "${DB_Name}", "-U", "${DB_User}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app_network
+
+  web:
+    image: template-web:latest
+    container_name: web
+    build:
+      context: ./src/backend
+    env_file:
+      - .env
+    command: >
+      sh -c " python manage.py makemigrations &&
+        python manage.py migrate && 
+        python manage.py collectstatic --noinput &&
+        daphne -b 0.0.0.0 -p 8080 api_gateway.asgi:application"
+    depends_on: 
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    volumes:
+      - ./src/backend/:/code/backend/
+      - static_volume:/code/static
+      - media_volume:/code/media
+    networks:
+      - app_network
+
+  celery:
+    image: template-celery:latest
+    container_name: celery
+    hostname: worker
+    build:
+      context: ./src/backend
+    command: celery -A Backend worker -l info
+    depends_on:
+      - redis
+      - web
+    env_file:
+      - .env
+    volumes:
+      - ./src/backend/:/code/backend/
+    networks:
+      - app_network
+
+  redis:
+    image: "redis:alpine"
+    platform: linux/amd64
+    container_name: redis
+    command: [ "redis-server", "--appendonly", "yes", "--save", "60", "5" ]
+    volumes:
+      - redis_data:/data
+    networks:
+      - app_network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx-local.conf:/etc/nginx/conf.d/default.conf:ro
+      - static_volume:/code/static
+      - media_volume:/code/media
+    depends_on:
+      - web
+    networks:
+      - app_network
+
+volumes:
+  data_volume:
+    driver: local
+  static_volume:
+    driver: local
+  media_volume:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  app_network:
+    driver: bridge

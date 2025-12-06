@@ -1,0 +1,29 @@
+# Use the Python 3.12 base image
+FROM python:3.12
+
+# Set environment variable to prevent buffering of output
+ENV PYTHONUNBUFFERED 1
+
+# Install required packages including redis-tools for Redis CLI, libgdal-dev for GDAL, and supervisor for process management
+RUN apt-get update && \
+    apt-get install --yes --no-install-recommends libgdal-dev supervisor redis-tools && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set the GDAL include paths
+ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
+ENV C_INCLUDE_PATH=/usr/include/gdal
+
+# Create and set the working directory
+RUN mkdir -p /src/web
+WORKDIR /src/web
+
+COPY requirements.txt .
+
+RUN python -m venv /venv
+ENV PATH="/venv/bin:$PATH"
+
+RUN pip install --upgrade pip setuptools && \
+    pip install -r requirements.txt
+
+COPY . .
