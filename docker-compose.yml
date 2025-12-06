@@ -24,7 +24,7 @@ services:
     image: template-celery:latest
     container_name: celery
     hostname: worker 
-    command: celery -A Backend worker -l info
+    command: celery -A web worker -l info
     depends_on:
       - redis
       - web 

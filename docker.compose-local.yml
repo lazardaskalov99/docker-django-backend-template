@@ -4,7 +4,7 @@ services:
     platform: linux/amd64
     container_name: db
     env_file:
-      - .env
+      - src/web/.env
     environment:
       POSTGRES_DB: ${DB_Name}
       POSTGRES_USER: ${DB_User}
@@ -23,21 +23,21 @@ services:
     image: template-web:latest
     container_name: web
     build:
-      context: ./src/backend
+      context: ./src/web
     env_file:
-      - .env
+      -  src/web/.env
     command: >
       sh -c " python manage.py makemigrations &&
         python manage.py migrate && 
         python manage.py collectstatic --noinput &&
-        daphne -b 0.0.0.0 -p 8080 api_gateway.asgi:application"
+        daphne -b 0.0.0.0 -p 8080 apps.gateway.asgi:application"
     depends_on: 
       db:
         condition: service_healthy
       redis:
         condition: service_started
     volumes:
-      - ./src/backend/:/code/backend/
+      - ./src/web/:/code/web/
       - static_volume:/code/static
       - media_volume:/code/media
     networks:
@@ -48,15 +48,15 @@ services:
     container_name: celery
     hostname: worker
     build:
-      context: ./src/backend
-    command: celery -A Backend worker -l info
+      context: ./src/web
+    command: celery -A web worker -l info
     depends_on:
       - redis
       - web
     env_file:
-      - .env
+      - src/web/.env
     volumes:
-      - ./src/backend/:/code/backend/
+      - ./src/web/:/code/web/
     networks:
       - app_network
 
