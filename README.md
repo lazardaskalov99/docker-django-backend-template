@@ -50,7 +50,7 @@ A production-ready Django REST API blueprint with Docker, featuring Celery for a
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Lazardaskalov99/docker-django-backend-blueprint.git
+   git clone <repository-url>
    cd docker-django-backend-blueprint
    ```
 
