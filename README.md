@@ -43,7 +43,7 @@ A production-ready Django REST API blueprint with Docker, featuring Celery for a
 - Docker Engine 20.10+
 - Docker Compose 2.0+
 - Git
-- Python 3.11+ (for local development with pre-commit hooks)
+- Python 3.12+ (for local development with pre-commit hooks)
 
 ## Development Tools
 
@@ -89,7 +89,7 @@ Once installed, the hooks will automatically run on every commit. If any hook fa
    ```
 
 2. **Create environment file**
-   
+
    Create a `.env` file in the root directory with the following variables:
    ```env
    # Database Configuration
@@ -139,11 +139,11 @@ Once installed, the hooks will automatically run on every commit. If any hook fa
    ```
 
 2. **Configure SSL certificates**
-   
+
    Place your SSL certificates in the `certbot/conf/` directory or configure Let's Encrypt.
 
 3. **Update production configuration**
-   
+
    Modify `nginx.conf` with your domain and SSL settings.
 
 4. **Deploy with production compose file**
