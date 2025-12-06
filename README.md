@@ -43,6 +43,40 @@ A production-ready Django REST API blueprint with Docker, featuring Celery for a
 - Docker Engine 20.10+
 - Docker Compose 2.0+
 - Git
+- Python 3.11+ (for local development with pre-commit hooks)
+
+## Development Tools
+
+### Pre-commit Hooks
+
+This project uses pre-commit hooks to ensure code quality and consistency. The hooks include:
+
+- **Code Formatting**: Black for Python code formatting
+- **Import Sorting**: isort for organizing imports
+- **Linting**: flake8 for Python code linting
+- **Security Checks**: bandit for detecting security issues
+- **Django Best Practices**: django-upgrade for Django-specific improvements
+- **Dockerfile Linting**: hadolint for Dockerfile best practices
+- **General Checks**: trailing whitespace, end-of-file, YAML/JSON validation
+
+#### Setup Pre-commit Hooks
+
+1. **Install pre-commit** (if not already installed):
+   ```bash
+   pip install pre-commit
+   ```
+
+2. **Install the git hooks**:
+   ```bash
+   pre-commit install
+   ```
+
+3. **Run hooks manually** (optional, to test on all files):
+   ```bash
+   pre-commit run --all-files
+   ```
+
+Once installed, the hooks will automatically run on every commit. If any hook fails, the commit will be blocked until the issues are fixed.
 
 ## Installation
 
@@ -286,6 +320,22 @@ docker exec -it web python manage.py test
 # Run with coverage
 docker exec -it web coverage run --source='.' manage.py test
 docker exec -it web coverage report
+```
+
+### Code Quality
+
+The project uses pre-commit hooks to maintain code quality. To manually run all quality checks:
+
+```bash
+# Run all pre-commit hooks
+pre-commit run --all-files
+
+# Run specific hook
+pre-commit run black --all-files
+pre-commit run flake8 --all-files
+
+# Update hooks to latest versions
+pre-commit autoupdate
 ```
 
 ## Troubleshooting
