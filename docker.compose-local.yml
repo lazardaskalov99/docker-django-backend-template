@@ -4,7 +4,7 @@ services:
     platform: linux/amd64
     container_name: db
     env_file:
-      - src/web/.env
+      - .env
     environment:
       POSTGRES_DB: ${DB_Name}
       POSTGRES_USER: ${DB_User}
@@ -24,8 +24,9 @@ services:
     container_name: web
     build:
       context: ./src/web
+      dockerfile: Dockerfile
     env_file:
-      -  src/web/.env
+      - .env
     command: >
       sh -c " python manage.py makemigrations &&
         python manage.py migrate && 
@@ -37,9 +38,11 @@ services:
       redis:
         condition: service_started
     volumes:
-      - ./src/web/:/code/web/
-      - static_volume:/code/static
-      - media_volume:/code/media
+      - ./src/web/web:/src/web/web
+      - ./src/web/apps:/src/web/apps
+      - .env:/src/web/.env
+      - static_volume:/src/static
+      - media_volume:/src/media
     networks:
       - app_network
 
@@ -54,7 +57,7 @@ services:
       - redis
       - web
     env_file:
-      - src/web/.env
+      - .env
     volumes:
       - ./src/web/:/code/web/
     networks:

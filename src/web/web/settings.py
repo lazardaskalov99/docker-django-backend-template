@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     "channels",
 
-    # Project Apps (generic, template-friendly)
+    # Project Apps 
     "apps.gateway",
 ]
 
@@ -128,11 +128,11 @@ TEMPLATES = [
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": config("DB_NAME", default="postgres"),
-        "USER": config("DB_USER", default="postgres"),
-        "PASSWORD": config("DB_PASSWORD", default="postgres"),
-        "HOST": config("DB_HOST", default="db"),
-        "PORT": config("DB_PORT", default="5432"),
+        "NAME": config("DB_Name", default="postgres"),
+        "USER": config("DB_User", default="postgres"),
+        "PASSWORD": config("DB_Password", default="postgres"),
+        "HOST": config("DB_Host", default="db"),
+        "PORT": config("DB_Port", default="5432"),
         "TEST": {
             "NAME": "test_database",
         },
