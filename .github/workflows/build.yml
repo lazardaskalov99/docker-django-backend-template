@@ -46,8 +46,8 @@ jobs:
       - name: Build & push Web API image
         uses: docker/build-push-action@v6
         with:
-          context: ./src/backend
-          file: ./src/backend/Dockerfile
+          context: ./src/web
+          file: ./src/web/Dockerfile
           push: true
           platforms: linux/amd64
           tags: |
@@ -60,8 +60,8 @@ jobs:
       - name: Build & push Celery Worker image
         uses: docker/build-push-action@v6
         with:
-          context: ./src/backend
-          file: ./src/backend/Dockerfile
+          context: ./src/web
+          file: ./src/web/Dockerfile
           push: true
           platforms: linux/amd64
           build-args: |
