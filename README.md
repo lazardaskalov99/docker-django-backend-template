@@ -1,6 +1,6 @@
-# Docker Django Backend Blueprint
+# Docker Django Backend Template
 
-A production-ready Django REST API blueprint with Docker, featuring Celery for async task processing, Redis for caching, Nginx as a reverse proxy, and WebSocket support through Django Channels.
+A production-ready Django REST API template with Docker, featuring Celery for async task processing, Redis for caching, Nginx as a reverse proxy, and WebSocket support through Django Channels.
 
 ## Features
 
@@ -51,7 +51,7 @@ A production-ready Django REST API blueprint with Docker, featuring Celery for a
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd docker-django-backend-blueprint
+   cd docker-django-backend-template
    ```
 
 2. **Adjust environment file**
@@ -332,4 +332,4 @@ For issues, questions, or contributions, please open an issue in the GitHub repo
 
 ---
 
-**Note**: This is a blueprint/template project. Customize it according to your specific needs and security requirements before deploying to production.
+**Note**: This is a template/template project. Customize it according to your specific needs and security requirements before deploying to production.
