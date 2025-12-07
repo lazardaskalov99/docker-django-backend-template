@@ -18,13 +18,10 @@ jobs:
       # Checkout code (needed for compose + tests)
       - name: Checkout code
         uses: actions/checkout@v4
-
-      # Prepare GHCR variables LOWERCASE
-      - name: Set GHCR env vars
+      - name: Set environment variables
         run: |
-          echo "GHCR_OWNER=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_ENV
-          echo "GHCR_REPO=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
-          echo "GHCR_REPO=${GHCR_REPO,,}" >> $GITHUB_ENV
+          echo "GHCR_OWNER=${{ github.repository_owner }}" >> $GITHUB_ENV
+          echo "GHCR_REPO=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
 
       # Login to GHCR
       - name: Login to GHCR
@@ -44,9 +41,6 @@ jobs:
 
       # Pull GHCR images + start stack
       - name: Pull and Start services
-        env:
-          GHCR_OWNER: ${{ env.GHCR_OWNER }}
-          GHCR_REPO: ${{ env.GHCR_REPO }}
         run: |
           docker-compose pull
           docker-compose up -d
