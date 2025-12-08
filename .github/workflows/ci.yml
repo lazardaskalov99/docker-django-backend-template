@@ -44,7 +44,7 @@ jobs:
 
       - name: Run Behave Tests
         run: |
-          docker exec web manage.py behave --settings=web.settings_test --quiet -f progress
+          docker exec web python manage.py behave --settings=web.settings_test --quiet -f progress
 
       - name: Cleanup
         run: docker rm -f web
