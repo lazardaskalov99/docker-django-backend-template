@@ -1,0 +1,11 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin_panel/css/custom-admin-theme.css' %}"/>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin_panel:index' %}">{{ site_header|default:"Custom Admin Panel" }}</a></h1>
+{% endblock %}

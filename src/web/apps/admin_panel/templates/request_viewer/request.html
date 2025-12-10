@@ -290,13 +290,44 @@
         .console-collapsed .console-body {
             display: none;
         }
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: white;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+        .back-button:hover {
+            background: #f9fafb;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateX(-2px);
+            color: #111827;
+        }
+        .back-button svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.5rem;
+        }
     </style>
 </head>
 
 <body class="bg-gray-200">
 <div class="container font-sans mx-auto px-4 sm:px-8 mt-4">
     <div class="flex flex-col">
-        <h1 class="page-title">Request Monitoring</h1>
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <a href="{% url 'admin_panel:index' %}" class="back-button">
+                <svg style="width: 20px; height: 20px; margin-right: 0.5rem;" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+                </svg>
+                Back to Admin
+            </a>
+            <h1 class="page-title" style="margin-bottom: 0; border-bottom: none;">Request Monitoring</h1>
+        </div>
         <div class="monitor-container">
             <div class="flex items-center justify-between">
                 <div>
@@ -394,7 +425,7 @@
             var $modal = $(this);
             $.ajax({
                 type: "POST",
-                url: "{% url 'modal-content' %}",
+                url: "{% url 'admin_panel:modal-content' %}",
                 data: {'obj': JSON.stringify(obj)},
                 success: function (response) {
                     $modal.find('.modal-body').html(response);
@@ -472,7 +503,7 @@
             if (confirm('Are you sure you want to delete all logs? This action cannot be undone.')) {
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'clear-logs' %}",
+                    url: "{% url 'admin_panel:clear-logs' %}",
                     success: function (response) {
                         $("#table-data").html(response);
                         alert('All logs have been cleared successfully.');
@@ -499,7 +530,7 @@
     function loadConsoleLogs() {
         $.ajax({
             type: "GET",
-            url: "{% url 'django-logs' %}",
+            url: "{% url 'admin_panel:django-logs' %}",
             success: function (data) {
                 var logs = data.logs;
                 if (logs && logs.length > 0) {
@@ -544,7 +575,7 @@
             if (autoRefreshEnabled) {
                 $.ajax({
                     type: "POST",
-                    url: "{% url 'request-viewer' %}",
+                    url: "{% url 'admin_panel:request-viewer' %}",
                     data: {'page': page, 'sortBy': currentSort.by, 'sortOrder': currentSort.order},
                     success: function (response) {
                         $("#table-data").html(response);
@@ -568,7 +599,7 @@
     function sortTable(sortBy, sortOrder) {
         $.ajax({
             type: "POST",
-            url: "{% url 'request-viewer' %}",
+            url: "{% url 'admin_panel:request-viewer' %}",
             data: {'sortBy': sortBy, 'sortOrder': sortOrder, 'page': page},
             success: function (response) {
                 $("#table-data").html(response);

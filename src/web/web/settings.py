@@ -45,6 +45,9 @@ CSRF_TRUSTED_ORIGINS = config("DJANGO_CSRF_TRUSTED", default="http://127.0.0.1",
 # Installed Apps
 # -----------------------------------------------------
 INSTALLED_APPS = [
+    # Project Apps (before Django admin to override templates)
+    "apps.admin_panel",
+    
     # Django core
     "django.contrib.admin",
     "django.contrib.auth",
@@ -67,7 +70,6 @@ INSTALLED_APPS = [
 
     # Project Apps 
     "apps.gateway",
-    "apps.admin_panel",
 ]
 
 

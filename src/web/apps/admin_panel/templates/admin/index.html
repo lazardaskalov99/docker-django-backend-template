@@ -1,0 +1,151 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block sidebar %}
+{# Remove the sidebar with recent actions #}
+{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Enhanced visibility styles */
+    #content-main {
+        width: 100% !important;
+        float: none !important;
+    }
+    
+    .dashboard .module {
+        margin-bottom: 2rem !important;
+    }
+    
+    .dashboard .module caption,
+    .dashboard .module h2 {
+        font-size: 1.125rem !important;
+        padding: 1rem 1.25rem !important;
+    }
+    
+    .dashboard .module table {
+        width: 100%;
+    }
+    
+    .dashboard .module th {
+        font-size: 0.95rem !important;
+        padding: 1rem 1.25rem !important;
+        text-align: left !important;
+    }
+    
+    .dashboard .module a {
+        font-size: 1rem !important;
+    }
+    
+    /* Left align add/change links */
+    .dashboard .module tr th:first-child,
+    .dashboard .module tr td:first-child {
+        text-align: left !important;
+    }
+    
+    .dashboard .module .addlink,
+    .dashboard .module .changelink {
+        display: none !important;
+    }
+    
+    /* Keep model name links visible and clickable */
+    .dashboard .module caption a,
+    .dashboard .module h2 a {
+        display: inline !important;
+    }
+    
+    /* Custom Tools section styling */
+    .custom-tools-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        border-radius: 0.75rem !important;
+        padding: 2rem !important;
+        margin-bottom: 2rem !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 10px 15px -3px rgba(102, 126, 234, 0.3) !important;
+        order: -1 !important;
+    }
+    
+    .custom-tools-section .tool-card {
+        background: white !important;
+        border-radius: 0.5rem !important;
+        padding: 1.5rem 2rem !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+        transition: all 0.3s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 1.5rem !important;
+    }
+    
+    .custom-tools-section .tool-card:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    .custom-tools-section .tool-icon {
+        width: 60px !important;
+        height: 60px !important;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        border-radius: 0.5rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .custom-tools-section .tool-content {
+        flex: 1 !important;
+    }
+    
+    .custom-tools-section .tool-title {
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        color: #1a202c !important;
+        margin: 0 !important;
+        text-decoration: none !important;
+    }
+    
+    .custom-tools-section .tool-title:hover {
+        color: #667eea !important;
+    }
+    
+    .custom-tools-section .section-title {
+        color: white !important;
+        font-size: 1.5rem !important;
+        font-weight: 700 !important;
+        margin-bottom: 1.5rem !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+    }
+    
+    #content-main {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+</style>
+
+<div class="custom-tools-section">
+    <h2 class="section-title">
+        <svg style="width: 28px; height: 28px;" fill="white" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+        </svg>
+        Tools
+    </h2>
+    
+    <a href="{% url 'admin_panel:request-viewer' %}" style="text-decoration: none;">
+        <div class="tool-card">
+            <div class="tool-icon">
+                <svg style="width: 32px; height: 32px;" fill="white" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <div class="tool-content">
+                <div class="tool-title">Request Monitoring Dashboard</div>
+            </div>
+        </div>
+    </a>
+</div>
+
+{{ block.super }}
+{% endblock %}
+

@@ -6,7 +6,7 @@ from .views import custom_admin_view, RequestDashboard, get_modal_content, clear
 class AdminPanel(admin.AdminSite):
     site_header = 'Custom Admin Panel'
     site_title = 'Admin Panel'
-    index_title = 'Welcome to Admin Panel'
+    index_title = ''
     site_url = None
     enable_nav_sidebar = True
 
@@ -21,5 +21,25 @@ class AdminPanel(admin.AdminSite):
         ]
         return custom_urls + urls
 
+    def get_app_list(self, request, app_label=None):
+        app_list = super().get_app_list(request, app_label)
+        for app in app_list:
+            for model in app['models']:
+                model['add_url'] = None
+        return app_list
+
 
 admin_panel = AdminPanel(name='admin_panel')
+
+# Register models with the custom admin panel
+from apps.gateway.models import Logger
+from django.contrib.auth.models import User
+
+@admin.register(Logger, site=admin_panel)
+class LoggerAdmin(admin.ModelAdmin):
+    list_display = ['id', 'path']
+    search_fields = ['path']
+
+# Register default Django models
+admin_panel.register(User)
+

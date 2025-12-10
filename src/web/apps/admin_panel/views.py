@@ -12,7 +12,7 @@ from django.utils.decorators import method_decorator
 
 from apps.gateway.models import Logger
 from apps.gateway.utils import is_admin, filter_paths
-from apps.admin_panel.conf import LIVE_MONITORING
+from apps.gateway.conf import LIVE_MONITORING
 
 # Create a custom log handler to store logs in memory
 class MemoryLogHandler(logging.Handler):
