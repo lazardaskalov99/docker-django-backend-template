@@ -10,7 +10,7 @@ import logging
 from django.utils.decorators import method_decorator
 
 
-from apps.admin_panel.models import Logger
+from apps.gateway.models import Logger
 from apps.gateway.utils import is_admin, filter_paths
 from apps.admin_panel.conf import LIVE_MONITORING
 

@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.conf import settings
 import os
 
-from apps.admin_panel.models import RequestModel, ResponseModel, Logger, TemplateResponseModel
+from apps.gateway.models import RequestModel, ResponseModel, Logger, TemplateResponseModel
 from apps.gateway.conf import WHITELISTED_PATHS, DATETIME_FORMAT, LIVE_MONITORING
 from apps.gateway.utils import is_whitelisted, get_time_length
 
